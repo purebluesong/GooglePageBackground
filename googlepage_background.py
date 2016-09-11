@@ -1,7 +1,6 @@
 #!/usr/bin/python
-from flask import Flask, request, redirect, send_file
+from flask import Flask, request, redirect, send_file, jsonify
 import random
-import requests
 import json
 import os
 
@@ -38,17 +37,15 @@ def background():
 @app.route('/background/add')
 def background_add():
     url = request.form.get('url')
-    try:
-        background = requests.get(url)
+    if url.startswith('http'):
         picture_addresses.append(url)
-        new_picture.append(url)
-        if len(new_picture) == 20:
-            savePic()
-            new_picture.clear()
-
         return 'success' + str(type(background))
-    except:
-        return 'failed'
+    return 'failed'
+
+
+@app.route('/background/all')
+def getAllpage():
+    return jsonify({'data': picture_addresses})
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=9410)
