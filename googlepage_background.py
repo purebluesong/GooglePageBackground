@@ -13,9 +13,10 @@ app = Flask(__name__)
 PIC_DIR = 'pic'
 PICS_FILE = 'picture_addresses.json'
 
-with open(PICS_FILE, 'r+') as f:
-    picture_addresses = json.loads(f.read())['data']
-
+# os.system('chmod')
+# with open(PICS_FILE, 'r+') as f:
+# picture_addresses = json.loads(f.read())['data']
+picture_addresses = []
 picture_addresses += [PIC_DIR + '/' + filename for filename in os.listdir(PIC_DIR)]
 new_picture = []
 
